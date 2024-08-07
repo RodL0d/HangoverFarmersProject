@@ -22,6 +22,7 @@ public class Board : MonoBehaviour
     private int currentJogadas;
     public GameManager gameManager;
     public bool cabo;
+    public bool aumentei = false;
   
 
     void Start()
@@ -337,5 +338,8 @@ public class Board : MonoBehaviour
         piece.transform.position = newPosition;
     }
 
-
+    public void AumentarVida()
+    {
+            currentJogadas++;
+    }
 }
