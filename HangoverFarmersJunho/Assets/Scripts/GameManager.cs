@@ -9,8 +9,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.activeSceneChanged += voltar;
+        
     }
+
+   
+
+    private void changeEnergy()
+    {
+        EnergySystem.instance.initializedscene();
+    }
+
     public void updateScene(string Main)
     {
         SceneManager.LoadScene(Main);
@@ -28,11 +36,27 @@ public class GameManager : MonoBehaviour
         Debug.Log("energia");
     }
 
-    public void voltar (string FarmHub)
+    public void voltar(string FarmHub)
     {
+        // Registra o método que será chamado quando a cena terminar de carregar
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // Carrega a cena
         SceneManager.LoadScene(FarmHub);
-        EnergySystem.instance.initializedscene();
-        Debug.Log("fjuhu");
+    }
+
+    // Método que será chamado após a cena ser carregada
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Verifica se a cena carregada é a cena FarmHub
+        if (scene.name == "FarmHub")
+        {
+            // Chama o método initializedscene do EnergySystem
+            EnergySystem.instance.initializedscene();
+
+            // Remove este método do evento para evitar chamadas duplicadas
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
     }
 
 }

@@ -43,12 +43,12 @@ public class EnergySystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-   public IEnumerable initializedscene()
+   public void initializedscene()
     {
-        yield return new WaitForSeconds(2);
         energyText = GameObject.Find("Energia").GetComponent<TextMeshProUGUI>();
         timeToNextEnergyText = GameObject.Find("Tempo").GetComponent<TextMeshProUGUI>();
-        
+        UpdateEnergyText();
+
     }
 
     void Update()
