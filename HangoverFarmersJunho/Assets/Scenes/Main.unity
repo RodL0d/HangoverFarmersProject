@@ -873,9 +873,10 @@ MonoBehaviour:
   objetivoImage: {fileID: 0}
   maxObejetivo: 20
   obejectiveText: {fileID: 1217384587}
-  MaxJogadas: 20
+  MaxJogadas: 5
   gameManager: {fileID: 721332084}
   cabo: 0
+  aumentei: 0
 --- !u!4 &759014405
 Transform:
   m_ObjectHideFlags: 0

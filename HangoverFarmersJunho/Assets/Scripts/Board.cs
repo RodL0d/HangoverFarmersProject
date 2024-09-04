@@ -24,6 +24,7 @@ public class Board : MonoBehaviour
     public bool cabo;
     private bool isRefilling = false; // Variável para controlar o estado de refill
     public bool aumentei = false;
+    
 
     void Start()
     {
@@ -41,6 +42,7 @@ public class Board : MonoBehaviour
         {
             cabo = true;
             gameManager.gameOver();
+
             Debug.Log("Game Over");
         }
     }
