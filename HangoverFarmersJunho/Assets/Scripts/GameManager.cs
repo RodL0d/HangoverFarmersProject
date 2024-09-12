@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
             // Remove este método do evento para evitar chamadas duplicadas
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 

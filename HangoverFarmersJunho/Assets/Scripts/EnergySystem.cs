@@ -30,7 +30,7 @@ public class EnergySystem : MonoBehaviour
         }
 
         energyText = GameObject.Find("Energia").GetComponent<TextMeshProUGUI>();
-        timeToNextEnergyText = GameObject.Find("Tempo").GetComponent <TextMeshProUGUI>();
+        timeToNextEnergyText = GameObject.Find("Tempo").GetComponent<TextMeshProUGUI>();
     }
 
     #endregion
@@ -43,7 +43,7 @@ public class EnergySystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-   public void initializedscene()
+    public void initializedscene()
     {
         energyText = GameObject.Find("Energia").GetComponent<TextMeshProUGUI>();
         timeToNextEnergyText = GameObject.Find("Tempo").GetComponent<TextMeshProUGUI>();
@@ -53,7 +53,7 @@ public class EnergySystem : MonoBehaviour
 
     void Update()
     {
-        
+
         RechargeEnergy();
         UpdateTimeToNextEnergyText(); // Atualiza o tempo restante a cada frame
     }
@@ -75,6 +75,8 @@ public class EnergySystem : MonoBehaviour
 
     private void RechargeEnergy()
     {
+        if (currentEnergy >= maxEnergy) return;
+
         TimeSpan timeSinceLastUse = DateTime.Now - lastEnergyUseTime;
         int energyToRecharge = (int)(timeSinceLastUse.TotalSeconds / energyRechargeTime);
 
@@ -97,18 +99,9 @@ public class EnergySystem : MonoBehaviour
         if (currentEnergy < maxEnergy)
         {
             TimeSpan timeUntilNextEnergy = lastEnergyUseTime.AddSeconds(energyRechargeTime) - DateTime.Now;
+            timeUntilNextEnergy = timeUntilNextEnergy.TotalSeconds < 0 ? TimeSpan.Zero : timeUntilNextEnergy;
 
-            if (timeUntilNextEnergy.TotalSeconds > 0)
-            {
-                timeToNextEnergyText.text = string.Format("Recarga: {1:D2}:{2:D2}",
-                    timeUntilNextEnergy.Hours,
-                    timeUntilNextEnergy.Minutes,
-                    timeUntilNextEnergy.Seconds);
-            }
-            else
-            {
-                timeToNextEnergyText.text = "Recarga: 00:00";
-            }
+            timeToNextEnergyText.text = $"Recarga: {timeUntilNextEnergy:hh\\:mm\\:ss}";
         }
         else
         {
